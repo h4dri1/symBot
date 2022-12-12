@@ -2,6 +2,8 @@
 
 Un script NodeJs pour créer un lien symbolique entre un dossier de téléchargement de torrent et un dossier de bibliothèque multimédia. Dans l'idéal il s'agit d'un script utilisable avec Rtorrent et à déclancher lors de la fin de téléchargement d'un torrent. Il crééra alors un lien symbolique avec un nom de fichier compréhensible pour une indexation dans un serveur multimédia (exemple Plex). Votre fichier torrent téléchargé reste donc dans le même dossier que son .torrent associé (vous continuez à seeder) et il est accéssible à la lecture avec votre service multimédia.
 
+----------------------------
+
 ## Pour commencer
 
 Vous pouvez utiliser ce script de deux manière:
@@ -16,10 +18,12 @@ Il vous faudra configurer un fichier .env qui contiendra le chemin des différen
 - NodeJs >= 12
 - rTorrent (Facultatif)
 
+----------------------------
+
 ### Installation
 
 - 1/ Installer Nodejs/npm si vous ne les avez pas encore, vous pouvez installer node pour tous les utilisateurs ou un seul en particulier.
-- 2/ Coner le dépot en local :
+- 2/ Cloner le dépot en local :
 ```bash
 git clone git@github.com:h4dri1/symBot
 ```
@@ -59,13 +63,16 @@ echo $* >> /home/(utilisateur qui possède rtorrent.rc)/symBot.log
 ```bash
 sudo service (user)-torrent restart
 ```
+
 ## Démarrage
 
 Pour utiliser le script manuellement :
 
 ```bash
-node symBot.js "/chemin/vers/le/fichier/ou/dossier/torrent"
+node symBot.js "/path/to/the/file/or/folder/torrent"
 ```
+
+----------------------------
 
 ## Versions
 
@@ -77,4 +84,3 @@ node symBot.js "/chemin/vers/le/fichier/ou/dossier/torrent"
 - Eviter par exemple les torrents qui ne commence pas par leur nom (ex: NIkkOX - Star Wars (2018).mkv).
 - Certain nom de film qui possède des chiffres dans leur nom risque de mal réagir.
 - Les série qui ne respecte pas le format S00E00
-
