@@ -1,63 +1,80 @@
 # SymBot 0.1.0
 
-Un script NodeJs pour créer un lien symbolique entre un dossier de téléchargement de torrent et un dossier de bibliothèque multimédia. Dans l'idéal il s'agit d'un script utilisable avec Rtorrent et à déclancher lors de la fin de téléchargement d'un torrent. Il crééra alors un lien symbolique avec un nom de fichier compréhensible pour une indexation dans un serveur multimédia (exemple Plex). Votre fichier torrent téléchargé reste donc dans le même dossier que son .torrent associer (vous continuez à seeder) et il est accéssible à la lecture avec votre service multimédia.
+Un script NodeJs pour créer un lien symbolique entre un dossier de téléchargement de torrent et un dossier de bibliothèque multimédia. Dans l'idéal il s'agit d'un script utilisable avec Rtorrent et à déclancher lors de la fin de téléchargement d'un torrent. Il crééra alors un lien symbolique avec un nom de fichier compréhensible pour une indexation dans un serveur multimédia (exemple Plex). Votre fichier torrent téléchargé reste donc dans le même dossier que son .torrent associé (vous continuez à seeder) et il est accéssible à la lecture avec votre service multimédia.
 
 ## Pour commencer
 
+Vous pouvez utiliser ce script de deux manière:
 
+- Soit vous l'executez directement en passant manuellement le nom du torrent téléchargé.
+- Soit vous l'utilisez avec rTorrent en configurant le fichier .rtorrent.rc pour qu'il execute le script à la fin d'un téléchargement.
+
+Il vous faudra configurer un fichier .env qui contiendra le chemin des différents dossiers impliqué (torrents, movies, tv shows).
 
 ### Pré-requis
 
-Ce qu'il est requis pour commencer avec votre projet...
-
-- Programme 1
-- Programme 2
-- etc...
+- NodeJs >= 12
+- rTorrent (Facultatif)
 
 ### Installation
 
-Les étapes pour installer votre programme....
+- 1/ Installer Nodejs/npm si vous ne les avez pas encore, vous pouvez installer node pour tous les utilisateurs ou un seul en particulier.
+- 2/ Coner le dépot en local :
+```bash
+git clone git@github.com:h4dri1/symBot
+```
+- 3/ Installer les dependances :
+```bash
+npm i
+```
+- 4/ Configurer le fichier.env
+```bash
+mv .env.example .env && nano .env
+```
+- 5/ Si vous souhaitez configurer le déclanchement automatique avec rTorrent (Facultatif)
+```bash
+nano ~/.rtorrent.rc
+```
+Et ajouter à la fin :
+```bash
+method.set_key = event.download.finished,complete,"execute2=/home/(utilisateur qui possède rtorrent.rc)/torrent-postprocess.sh,$d.name="
+```
+Ensuite créez le fichier torrent-postprocess.sh
+```bash
+nano torrent-postprocess.sh
+```
+Et collez ceci :
+```bash
+#!/bin/bash
+echo $* >> /home/(utilisateur qui possède rtorrent.rc)/symBot.log
 
-Dites ce qu'il faut faire...
+#Si vous avez installé node pour tous les utilisateurs vous pouvez décommenter cette ligne :
+# node /home/(utilisateur qui possède rtorrent.rc)/symBot.js "$@"
 
-_exemple_: Executez la commande ``telnet mapscii.me`` pour commencer ensuite [...]
-
-
-Ensuite vous pouvez montrer ce que vous obtenez au final...
-
+#Si vous avez installé node uniquement pour l'utilisateur qui execute rtorrent garder cette ligne sinon commentez là
+/home/(utilisateur qui possède rtorrent.rc)/.nvm/versions/node/v18.12.1/bin/node /home/(utilisateur qui possède rtorrent.rc)/symBot.js "$@"
+#Vous trouverez votre version de node et son chemin dans le fichier .bashrc de l'utilisateur qui excute rtorrent
+```
+- 6/ Redémarrez rtorrent
+```bash
+sudo service (user)-torrent restart
+```
 ## Démarrage
 
-Dites comment faire pour lancer votre projet
+Pour utiliser le script manuellement :
 
-## Fabriqué avec
-
-Entrez les programmes/logiciels/ressources que vous avez utilisé pour développer votre projet
-
-_exemples :_
-* [Materialize.css](http://materializecss.com) - Framework CSS (front-end)
-* [Atom](https://atom.io/) - Editeur de textes
-
-## Contributing
-
-Si vous souhaitez contribuer, lisez le fichier [CONTRIBUTING.md](https://example.org) pour savoir comment le faire.
+```bash
+node symBot.js "/chemin/vers/le/fichier/ou/dossier/torrent"
+```
 
 ## Versions
-Listez les versions ici 
-_exemple :_
-**Dernière version stable :** 5.0
-**Dernière version :** 5.1
-Liste des versions : [Cliquer pour afficher](https://github.com/your/project-name/tags)
-_(pour le lien mettez simplement l'URL de votre projets suivi de ``/tags``)_
 
-## Auteurs
-Listez le(s) auteur(s) du projet ici !
-* **Jhon doe** _alias_ [@outout14](https://github.com/outout14)
+0.1.0
 
-Lisez la liste des [contributeurs](https://github.com/your/project/contributors) pour voir qui à aidé au projet !
+## Bugs
 
-_(pour le lien mettez simplement l'URL de votre projet suivi de ``/contirubors``)_
-
-## License
-
-Ce projet est sous licence ``exemple: WTFTPL`` - voir le fichier [LICENSE.md](LICENSE.md) pour plus d'informations
+- Certain format exotique de torrent ne matcherons pas avec les regexs disponible un affinage avec le temps et les exemple de raté devra être fait.
+- Eviter par exemple les torrents qui ne commence pas par leur nom (ex: NIkkOX - Star Wars (2018).mkv).
+- Certain nom de film qui possède des chiffres dans leur nom risque de mal réagir.
+- Les série qui ne respecte pas le format S00E00
 
