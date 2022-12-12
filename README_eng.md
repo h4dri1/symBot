@@ -59,6 +59,10 @@ echo $* >> /home/(user who own rtorrent.rc)/symBot.log
 /home/(user who own rtorrent.rc)/.nvm/versions/node/v18.12.1/bin/node /home/(user who own rtorrent.rc)/symBot.js "$@"
 #You will find your node version and its path in the .bashrc file of the user running rtorrent
 ```
+Then make script executable :
+```bash
+chown +x symBot.js
+```
 - 6/ Restart rtorrent
 ```bash
 sudo service (user)-torrent restart
