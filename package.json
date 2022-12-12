@@ -1,7 +1,7 @@
 {
-  "name": "torrent",
-  "version": "1.0.0",
-  "description": "",
+  "name": "symbot",
+  "version": "0.1.0",
+  "description": "Un script NodeJs pour créer un lien symbolique entre un dossier de téléchargement de torrent et un dossier de bibliothèque multimédia. Dans l'idéal il s'agit d'un script utilisable avec Rtorrent et à déclancher lors de la fin de téléchargement d'un torrent. Il crééra alors un lien symbolique avec un nom de fichier compréhensible pour une indexation dans un serveur multimédia (exemple Plex). Votre fichier torrent téléchargé reste donc dans le même dossier que son .torrent associer (vous continuez à seeder) et il est accéssible à la lecture avec votre service multimédia.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,5 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h4dri1/symBot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/h4dri1/symBot/issues"
+  },
+  "homepage": "https://github.com/h4dri1/symBot#readme"
 }
