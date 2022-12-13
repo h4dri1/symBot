@@ -16,13 +16,15 @@ const season = myArgs[0].match(regExFilters.saisonRegEx);
 const episode = myArgs[0].match(regExFilters.episodeRegEx);
 const year = myArgs[0].match(regExFilters.yearRegEx);
 const nameTorrent = myArgs[0].match(regExFilters.nameRegEx);
+const format = myArgs[0].match(regExFilters.formatRegEx);
 
 // Clean torrent name
 const torrentName =  clean({ 
     name: nameTorrent ? nameTorrent[1] : myArgs[0], 
     season: season ? season[1] : null,
     episode: episode ? episode[1] : null, 
-    year: year ? year[0] : null
+    year: year ? year[0] : null,
+    format: format ? `.${format[1]}` : null
 })
 
 // Create symbolic link

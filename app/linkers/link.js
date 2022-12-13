@@ -13,7 +13,7 @@ async function linkTorrent(torrentName, myArgs) {
         // TVShow
         console.log('Serie trouvée ajout en court...')
         // Create folder
-        const newTorrentName = { ...torrentName, season: TVShow }
+        const newTorrentName = torrentName.season !== null && torrentName.format !== null ? torrentName : { ...torrentName, season: TVShow.season, format: TVShow.format }
         await createFolder(generateFolder(newTorrentName), 'TVShows', newTorrentName)
         // Create symbolic link
         await symLink(myArgs, generateFolder(newTorrentName), 'TVShows', newTorrentName)
