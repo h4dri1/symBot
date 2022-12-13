@@ -1,28 +1,30 @@
 // Description: Check if the torrent is a serie or a movie create the folder and create a symbolic link
 
-const { generateFolder } = require('../utils/generateFolder')
-const { createFolder } = require('../utils/createFolder')
-const { symLink } = require('../utils/symLink')
+const { generateFolder } = require('../services/generateFolder')
+const { createFolder } = require('../services/createFolder')
+const { symLink } = require('../services/symLink')
+const { isTVShow } = require('../services/isTVShow')
+const { env } = require('../../config')
 
 async function linkTorrent(torrentName, myArgs) {
-    // Generate folder name
-    const folder = generateFolder(torrentName)
     // Check if the torrent is a serie or a movie
-    if (torrentName.season) {
+    const TVShow = await isTVShow(myArgs, env.Torrents)
+    if (TVShow) {
         // TVShow
         console.log('Serie trouvée ajout en court...')
         // Create folder
-        await createFolder(folder, 'TVShows', torrentName)
+        const newTorrentName = { ...torrentName, season: TVShow }
+        await createFolder(generateFolder(newTorrentName), 'TVShows', newTorrentName)
         // Create symbolic link
-        await symLink(myArgs, folder, 'TVShows', torrentName)
+        await symLink(myArgs, generateFolder(newTorrentName), 'TVShows', newTorrentName)
     }
     else {
         // Movie
         console.log('Film trouvé ajout en court...')
         // Create folder
-        await createFolder(folder, 'Movies', torrentName)
+        await createFolder(generateFolder(torrentName), 'Movies', torrentName)
         // Create symbolic link
-        await symLink(myArgs, folder, 'Movies', torrentName)
+        await symLink(myArgs, generateFolder(torrentName), 'Movies', torrentName)
     }
 }
 

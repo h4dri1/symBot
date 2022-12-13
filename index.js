@@ -19,7 +19,7 @@ const nameTorrent = myArgs[0].match(regExFilters.nameRegEx);
 
 // Clean torrent name
 const torrentName =  clean({ 
-    name: nameTorrent[1], 
+    name: nameTorrent ? nameTorrent[1] : myArgs[0], 
     season: season ? season[1] : null,
     episode: episode ? episode[1] : null, 
     year: year ? year[0] : null

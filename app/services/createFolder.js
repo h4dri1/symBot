@@ -16,11 +16,11 @@ module.exports = {
                 console.log(`Création du dossier de ${envFolder}... \n`)
             }
             else {
-                console.log(`Le répertoire de ${envFolder} existe déjà... \n`)
+                console.log(`Le répertoire de ${torrentName.name} existe déjà... \n`)
             }
             if (envFolder === 'TVShows') {
                 // Check if the season folder exist
-                if (!fs.existsSync(`${env[envFolder]}/${folder}/${torrentName.season}`)) {
+                if (!fs.existsSync(`${env[envFolder]}/${folder}/Season ${torrentName.season}`)) {
                     // Create season folder
                     await execPromise(`mkdir '${env[envFolder]}/${folder}/Season ${torrentName.season}'`)
                     console.log(`Création du dossier de saison... \n`)
