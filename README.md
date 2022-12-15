@@ -62,7 +62,7 @@ echo $* >> /home/(utilisateur qui possède rtorrent.rc)/symBot.log
 ```
 Puis rendez le script executable :
 ```bash
-chown +x app.js
+chown +x torrent-postprocess.sh
 ```
 - 6/ Redémarrez rtorrent
 ```bash

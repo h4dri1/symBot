@@ -63,7 +63,7 @@ echo $* >> /home/(user who own rtorrent.rc)/symBot.log
 ```
 Then make script executable :
 ```bash
-chown +x symBot.js
+chown +x torrent-postprocess.sh
 ```
 - 6/ Restart rtorrent
 ```bash
