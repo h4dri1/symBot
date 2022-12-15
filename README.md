@@ -1,6 +1,6 @@
 # SymBot 0.1.0
 
-Un script NodeJs pour créer un lien symbolique entre un dossier de téléchargement de torrent et un dossier de bibliothèque multimédia. Dans l'idéal il s'agit d'un script utilisable avec Rtorrent et à déclancher lors de la fin de téléchargement d'un torrent. Il crééra alors un lien symbolique avec un nom de fichier compréhensible pour une indexation dans un serveur multimédia (exemple Plex). Votre fichier torrent téléchargé reste donc dans le même dossier que son .torrent associé (vous continuez à seeder) et il est accéssible à la lecture avec votre service multimédia.
+Un script NodeJs pour créer un lien symbolique entre un dossier de téléchargement de torrent et un dossier de bibliothèque multimédia. Dans l'idéal il s'agit d'un script utilisable avec Rtorrent et à déclancher lors de la fin de téléchargement d'un torrent. Il crééra alors un lien symbolique avec un nom de fichier compréhensible pour une indexation dans un serveur multimédia (exemple Plex). Votre fichier torrent téléchargé reste donc dans le même dossier que son .torrent associé (vous continuez à seeder) et il est accéssible à la lecture avec votre service multimédia. Une requête vers l'API themoviesdb permet de récupérer les info sur les films/serie et d'obtenir un nom de fichier et une année correct pour le film.
 
 ----------------------------
 
@@ -17,6 +17,7 @@ Il vous faudra configurer un fichier .env qui contiendra le chemin des différen
 
 - NodeJs >= 17.5 (fetch)
 - rTorrent (Facultatif)
+- Un compte themoviedb.org pour obtenir une clé API
 
 ----------------------------
 

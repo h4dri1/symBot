@@ -1,6 +1,7 @@
 # SymBot 0.1.0
 
-A NodeJs script to create a symbolic link between a torrent download folder and a media library folder. Ideally, this is a script that can be used with Rtorrent and to be triggered when a torrent download is finished. It will then create a symbolic link with an understandable file name for indexing in a multimedia server (Plex example). Your downloaded torrent file therefore remains in the same folder as its associated .torrent file (you continue to seed) and it is accessible for playback with your multimedia service.
+A NodeJs script to create a symbolic link between a torrent download folder and a media library folder. Ideally, this is a script that can be used with Rtorrent and to be triggered when a torrent download is finished. It will then create a symbolic link with an understandable file name for indexing in a multimedia server (Plex example). Your downloaded torrent file therefore remains in the same folder as its associated .torrent file (you continue to seed) and it is accessible for playback with your multimedia service. A request to themoviesdb API allows to retrieve info on films/series and to obtain a correct file name and year for the film.
+
 
 --------------------------------------------------------
 
@@ -17,6 +18,7 @@ You will need to configure an .env file which will contain the path of the diffe
 
 - NodeJs >= 12
 - rTorrent (Optional)
+- A themoviedb.org account for API key
 
 --------------------------------------------------------
 
