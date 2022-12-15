@@ -32,9 +32,9 @@ module.exports = {
                 // Create symbolic link for each file
                 files.forEach(async file => {
                     // Create the file name
-                    const showFileName = `Season ${torrentName.season}/${torrentName.name} - S${torrentName.season}E${file.match(regExFilters.episodeRegEx)[2]}${file.slice(-4)}`
+                    const showFileName = () => `Season ${torrentName.season}/${torrentName.name} - S${torrentName.season}E${file.match(regExFilters.episodeRegEx)[2]}${file.slice(-4)}`
                     // Create variable filename for movies or tvshows
-                    const fileName = envFolder === 'Movies' ? `${torrentName.name}${file.slice(-4)}` : showFileName
+                    const fileName = envFolder === 'Movies' ? `${torrentName.name}${file.slice(-4)}` : showFileName()
                     await execPromise(`ln -s '${env.Torrents}/${myArgs}/${file}' '${env[envFolder]}/${folder}/${fileName}'`)
                     console.log(`Création du lien symbolique... \n`)
                 })
