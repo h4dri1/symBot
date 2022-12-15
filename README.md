@@ -54,15 +54,15 @@ Et collez ceci :
 echo $* >> /home/(utilisateur qui possède rtorrent.rc)/symBot.log
 
 #Si vous avez installé node pour tous les utilisateurs vous pouvez décommenter cette ligne :
-# node /home/(utilisateur qui possède rtorrent.rc)/symBot.js "$@"
+# node /home/(utilisateur qui possède rtorrent.rc)/app.js "$@"
 
 #Si vous avez installé node uniquement pour l'utilisateur qui execute rtorrent garder cette ligne sinon commentez là
-/home/(utilisateur qui possède rtorrent.rc)/.nvm/versions/node/v18.12.1/bin/node /home/(utilisateur qui possède rtorrent.rc)/symBot.js "$@"
+/home/(utilisateur qui possède rtorrent.rc)/.nvm/versions/node/v18.12.1/bin/node /home/(utilisateur qui possède rtorrent.rc)/app.js "$@"
 #Vous trouverez votre version de node et son chemin dans le fichier .bashrc de l'utilisateur qui excute rtorrent
 ```
 Puis rendez le script executable :
 ```bash
-chown +x symBot.js
+chown +x app.js
 ```
 - 6/ Redémarrez rtorrent
 ```bash
@@ -74,7 +74,7 @@ sudo service (user)-torrent restart
 Pour utiliser le script manuellement :
 
 ```bash
-node symBot.js "/path/to/the/file/or/folder/torrent"
+node app.js "/path/to/the/file/or/folder/torrent"
 ```
 
 ----------------------------

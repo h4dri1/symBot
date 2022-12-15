@@ -1,3 +1,5 @@
+// Description: Checks if a path is a directory
+
 const fs = require('fs');
 
 module.exports = {
