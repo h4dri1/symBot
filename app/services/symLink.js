@@ -29,6 +29,13 @@ module.exports = {
                     await execPromise(`ln -s '${env.Torrents}/${myArgs}/${file}' '${env[envFolder]}/${folder}/${fileName}'`)
                     console.log(`Création du lien symbolique... \n`)
                 })
+                //add cover picture
+                if (torrentName.cover && envFolder === 'Movies') {
+                    await execPromise(`wget -O '${env[envFolder]}/${folder}/cover.jpg' '${torrentName.cover}'`)
+                }
+                else if (torrentName.cover && envFolder === 'TVShows') {
+                    await execPromise(`wget -O '${env[envFolder]}/${folder}/Season ${torrentName.season}/cover.jpg' '${torrentName.cover}'`)
+                }
             } catch (error) {
                 console.log(`error: ${error.message}`);
                 return;

@@ -37,8 +37,6 @@ async function main() {
             format: format ? checkFormat : null
         })
 
-        console.log(torrentInfo)
-
         let mediaInfo = null;
         // Call api to get info
         if (torrentInfo.season) {
@@ -50,7 +48,8 @@ async function main() {
         const torrentName = {
             ...torrentInfo,
             name: mediaInfo.results[0].name ? mediaInfo.results[0].name : mediaInfo.results[0].original_title,
-            year: mediaInfo.results[0].first_air_date ? mediaInfo.results[0].first_air_date.split('-')[0] : mediaInfo.results[0].release_date.split('-')[0]
+            year: mediaInfo.results[0].first_air_date ? mediaInfo.results[0].first_air_date.split('-')[0] : mediaInfo.results[0].release_date.split('-')[0],
+            cover: mediaInfo.results[0].poster_path ? `https://image.tmdb.org/t/p/w500${mediaInfo.results[0].poster_path}` : null
         }
 
         // Create symbolic link

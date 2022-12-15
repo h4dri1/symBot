@@ -6,7 +6,6 @@ module.exports = {
         const readdirPromise = util.promisify(fs.readdir)
         const files = await readdirPromise(`${env}/${myArgs}`)
         if (files.length > 1) {
-            console.log('Plusieurs fichiers trouvés')
             return files
         }
         return files
