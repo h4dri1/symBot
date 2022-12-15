@@ -15,7 +15,7 @@ Il vous faudra configurer un fichier .env qui contiendra le chemin des différen
 
 ### Pré-requis
 
-- NodeJs >= 12
+- NodeJs >= 17.5 (fetch)
 - rTorrent (Facultatif)
 
 ----------------------------

@@ -2,15 +2,16 @@
 
 const { exec } = require("child_process");
 const util = require('util')
-const { env } = require('../../config')
+const { env } = require('../../config');
+const regExFilters = require("../filters/regEx");
+const { moreOneFile } = require("./moreOneFile");
 
 module.exports = {
     symLink: async (myArgs, folder, envFolder, torrentName) => {
         const execPromise = util.promisify(exec)
-        const movieFileName = `${torrentName.name}${torrentName.format}`
         if (myArgs.slice(-4) === torrentName.format) {
             const showFileName = `Season ${torrentName.season}/${torrentName.name} - S${torrentName.season}E${torrentName.episode}${torrentName.format}`
-            const file = envFolder === 'Movies' ? movieFileName : showFileName
+            const file = envFolder === 'Movies' ? `${torrentName.name}${torrentName.format}` : showFileName
             try {
                 await execPromise(`ln -s '${env.Torrents}/${myArgs}' '${env[envFolder]}/${folder}/${file}'`)
                 console.log(`Création du lien symbolique... \n`)
@@ -20,10 +21,14 @@ module.exports = {
             }
         }
         else {
-            const file = envFolder === 'Movies' ? movieFileName : `Season ${torrentName.season}/`
+            const files = await moreOneFile(myArgs, env.Torrents)
             try {
-                await execPromise(`cp -rs '${env.Torrents}/${myArgs}/'* '${env[envFolder]}/${folder}/${file}'`)
-                console.log(`Copie du dossier... \n`)
+                files.forEach(async file => {
+                    const showFileName = `Season ${torrentName.season}/${torrentName.name} - S${torrentName.season}E${file.match(regExFilters.episodeRegEx)[2]}${file.slice(-4)}`
+                    const fileName = envFolder === 'Movies' ? `${torrentName.name}${file.slice(-4)}` : showFileName
+                    await execPromise(`ln -s '${env.Torrents}/${myArgs}/${file}' '${env[envFolder]}/${folder}/${fileName}'`)
+                    console.log(`Création du lien symbolique... \n`)
+                })
             } catch (error) {
                 console.log(`error: ${error.message}`);
                 return;

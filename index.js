@@ -9,32 +9,49 @@ const myArgs = process.argv.slice(2);
 const regExFilters = require('./app/filters/regEx')
 const { clean } = require('./app/cleaners/clean')
 const { linkTorrentMovies, linkTorrentMusic } = require('./app/linkers/link')
-const { checkType } = require('./app/services/checkType')
+const { checkType } = require('./app/services/checkType');
+const { fetchData } = require('./app/services/fetch');
 
 // Extract torrent name
 // Use regex to extract season, episode and year
-async function ext() {
-    const type = await checkType(myArgs[0], 'formatRegEx');
+async function ext(regExSearch) {
+    const type = await checkType(myArgs[0], regExSearch);
     return type
 }
 
 async function main() {
-    const { format } = await ext();
-    const checkFormat = `.${format}`
+    const format = await ext('formatRegEx');
+    const checkFormat = `.${format[1]}`
     if (checkFormat.match(regExFilters.formatMoviesRegEx)) {
-        const season = myArgs[0].match(regExFilters.saisonRegEx);
-        const episode = myArgs[0].match(regExFilters.episodeRegEx);
-        const year = myArgs[0].match(regExFilters.yearRegEx);
-        const nameTorrent = myArgs[0].match(regExFilters.nameRegEx);
+        const season = await ext('saisonRegEx');
+        const episode = await ext('episodeRegEx');
+        const year = await ext('yearRegEx');
+        const nameTorrent = await ext('nameRegEx');
 
         // Clean torrent name
-        const torrentName =  clean({ 
+        const torrentInfo =  clean({ 
             name: nameTorrent ? nameTorrent[1] : myArgs[0], 
             season: season ? season[1] : null,
             episode: episode ? episode[1] : null, 
             year: year ? year[0] : null,
             format: format ? checkFormat : null
         })
+
+        console.log(torrentInfo)
+
+        let mediaInfo = null;
+        // Call api to get info
+        if (torrentInfo.season) {
+            mediaInfo = await fetchData(`https://api.themoviedb.org/3/search/tv?api_key=${process.env.APIKey}&language=fr-FR&query=${torrentInfo.name}&page=1&include_adult=false`)
+        } else {
+            mediaInfo = await fetchData(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.APIKey}&language=fr-FR&query=${torrentInfo.name}&page=1&include_adult=false${torrentInfo.year ? `&year=${torrentInfo.year}` : ''}`)
+        }
+
+        const torrentName = {
+            ...torrentInfo,
+            name: mediaInfo.results[0].name ? mediaInfo.results[0].name : mediaInfo.results[0].original_title,
+            year: mediaInfo.results[0].first_air_date ? mediaInfo.results[0].first_air_date.split('-')[0] : mediaInfo.results[0].release_date.split('-')[0]
+        }
 
         // Create symbolic link
         linkTorrentMovies(torrentName, myArgs[0]);
