@@ -2,6 +2,7 @@
 
 const { checkType } = require('../services/checkType');
 const { clean } = require('./cleaner');
+const { fetchInfo } = require('../services/fetchData');
 
 async function checkRegX(regExSearch, myArgs) {
     const type = await checkType(myArgs, regExSearch);
