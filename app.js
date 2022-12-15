@@ -8,7 +8,7 @@ const myArgs = process.argv.slice(2);
 
 const regExFilters = require('./app/filters/regEx')
 const { clean } = require('./app/modules/cleaner')
-const { linkTorrentMovies, linkTorrentMusic } = require('./app/controllers/linker')
+const { linkTorrentMovies, linkTorrentMusic } = require('./app/linker')
 const { checkType } = require('./app/services/checkType');
 const { makeMovieName } = require('./app/modules/makeName');
 

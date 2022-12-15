@@ -1,8 +1,8 @@
 // Description: Check if the torrent is a serie or a movie create the folder and create a symbolic link
 
-const { makeFolder } = require('../modules/makeName')
-const { createFolder } = require('../modules/createFolder')
-const { symLink } = require('../modules/symLink')
+const { makeFolder } = require('./modules/makeName')
+const { createFolder } = require('./modules/createFolder')
+const { symLink } = require('./modules/symLink')
 
 module.exports = {
     linkTorrentMovies: async (torrentName, myArgs) => {
