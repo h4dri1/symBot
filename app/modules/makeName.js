@@ -18,17 +18,23 @@ module.exports = {
         const year = await checkRegX('yearRegEx', myArgs);
         const nameTorrent = await checkRegX('nameRegEx', myArgs);
 
+        console.log(nameTorrent)
+
         // Clean torrent name
         const torrentInfo =  clean({
-            name: nameTorrent ? nameTorrent[1] : myArgs, 
+            name: nameTorrent ? nameTorrent[0] : myArgs, 
             season: season ? season[1] : null,
             episode: episode ? episode[1] : null, 
             year: year ? year[0] : null,
             format: fileType ? fileType : null
         })
 
+        console.log(torrentInfo)
+
         // Call api to get info
         const mediaInfo = await fetchInfo(torrentInfo);
+
+        console.log(mediaInfo)
 
         // Make torrent name
         const torrentName = {
