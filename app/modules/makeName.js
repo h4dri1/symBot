@@ -18,8 +18,6 @@ module.exports = {
         const year = await checkRegX('yearRegEx', myArgs);
         const nameTorrent = await checkRegX('nameRegEx', myArgs);
 
-        console.log(nameTorrent)
-
         // Clean torrent name
         const torrentInfo =  clean({
             name: nameTorrent ? nameTorrent[0] : myArgs, 
@@ -29,12 +27,8 @@ module.exports = {
             format: fileType ? fileType : null
         })
 
-        console.log(torrentInfo)
-
         // Call api to get info
         const mediaInfo = await fetchInfo(torrentInfo);
-
-        console.log(mediaInfo)
 
         // Make torrent name
         const torrentName = {
