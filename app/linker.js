@@ -7,21 +7,33 @@ const { symLink } = require('./modules/symLink')
 module.exports = {
     linkTorrentMovies: async (torrentName, myArgs) => {
     // Check if the torrent is a serie or a movie
-        if (torrentName.media === 'tv') {
-            // TVShow
-            console.log('Serie trouvée ajout en court...')
-            // Create folder
-            await createFolder(makeFolder(torrentName), 'TVShows', torrentName)
-            // Create symbolic link
-            await symLink(myArgs, makeFolder(torrentName), 'TVShows', torrentName)
-        }
-        else {
-            // Movie
-            console.log('Film trouvé ajout en court...')
-            // Create folder
-            await createFolder(makeFolder(torrentName), 'Movies', torrentName)
-            // Create symbolic link
-            await symLink(myArgs, makeFolder(torrentName), 'Movies', torrentName)
+        try {
+            if (torrentName.media === 'tv') {
+                // TVShow
+                log('info: Finding TV Show adding...')
+                console.log('Serie trouvée ajout en court...')
+                // Create folder
+                log('info: Creating folder...')
+                await createFolder(makeFolder(torrentName), 'TVShows', torrentName)
+                // Create symbolic link
+                log('info: Creating symbolic link...')
+                await symLink(myArgs, makeFolder(torrentName), 'TVShows', torrentName)
+            }
+            else {
+                // Movie
+                log('info: Finding Movie adding...')
+                console.log('Film trouvé ajout en court...')
+                // Create folder
+                log('info: Creating folder...')
+                await createFolder(makeFolder(torrentName), 'Movies', torrentName)
+                // Create symbolic link
+                log('info: Creating symbolic link...')
+                await symLink(myArgs, makeFolder(torrentName), 'Movies', torrentName)
+            }
+        } catch (error) {
+            log(`error: Link torrent`)
+            console.log(`error: ${error.message}`);
+            return;
         }
     },
 

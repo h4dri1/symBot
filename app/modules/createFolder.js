@@ -4,32 +4,40 @@ const fs = require('fs');
 const util = require('util')
 const { env } = require('../../config')
 const { exec } = require("child_process");
+const { log } = require('../log/logger')
 
 module.exports = {
     createFolder: async (folder, envFolder, torrentName) => {
         const execPromise = util.promisify(exec)
         try {
             // Check if the folder exist
+            log(`info: Check if the folder exist before create it`)
             if (!fs.existsSync(`${env[envFolder]}/${folder}`)) {
                 // Create folder
+                log(`info: Create folder`)
                 await execPromise(`mkdir '${env[envFolder]}/${folder}'`)
                 console.log(`Création du dossier de ${envFolder}... \n`)
             }
             else {
+                log(`info: The folder already exist`)
                 console.log(`Le répertoire de ${torrentName.name} existe déjà... \n`)
             }
             if (envFolder === 'TVShows') {
+                log(`info: Check if the season folder exist before create it`)
                 // Check if the season folder exist
                 if (!fs.existsSync(`${env[envFolder]}/${folder}/Season ${torrentName.season}`)) {
                     // Create season folder
+                    log(`info: Create season folder`)
                     await execPromise(`mkdir '${env[envFolder]}/${folder}/Season ${torrentName.season}'`)
                     console.log(`Création du dossier de saison... \n`)
                 }
                 else {
+                    log(`info: The season folder already exist`)
                     console.log(`Le répertoire de saison existe déjà... \n`)
                 }
             }
         } catch (error) {
+            log(`error: Create folder`)
             console.log(`error: ${error.message}`);
             return;
         }
