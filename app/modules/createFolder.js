@@ -16,11 +16,9 @@ module.exports = {
                 // Create folder
                 log(`info: Create folder`)
                 await execPromise(`mkdir '${env[envFolder]}/${folder}'`)
-                console.log(`Création du dossier de ${envFolder}... \n`)
             }
             else {
                 log(`info: The folder already exist`)
-                console.log(`Le répertoire de ${torrentName.name} existe déjà... \n`)
             }
             if (envFolder === 'TVShows') {
                 log(`info: Check if the season folder exist before create it`)
@@ -29,16 +27,13 @@ module.exports = {
                     // Create season folder
                     log(`info: Create season folder`)
                     await execPromise(`mkdir '${env[envFolder]}/${folder}/Season ${torrentName.season}'`)
-                    console.log(`Création du dossier de saison... \n`)
                 }
                 else {
                     log(`info: The season folder already exist`)
-                    console.log(`Le répertoire de saison existe déjà... \n`)
                 }
             }
         } catch (error) {
-            log(`error: Create folder`)
-            console.log(`error: ${error.message}`);
+            log(`error when creating folder : ${error.message}`)
             return;
         }
     }

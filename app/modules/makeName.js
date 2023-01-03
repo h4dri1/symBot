@@ -47,8 +47,7 @@ module.exports = {
 
             return torrentName;
         } catch (error) {
-            log('error: Make torrent name')
-            console.error(error);
+            log(`error when making media name : ${error}`)
         }
        
     },

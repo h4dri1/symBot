@@ -12,4 +12,3 @@ const regExFilters = {
 }
 
 module.exports = regExFilters
-

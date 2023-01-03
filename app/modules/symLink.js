@@ -22,10 +22,8 @@ module.exports = {
                 // Create symbolic link
                 log(`info: Create symbolic link`)
                 await execPromise(`ln -s '${env.Torrents}/${myArgs}' '${env[envFolder]}/${folder}/${file}'`)
-                console.log(`Création du lien symbolique... \n`)
             } catch (error) {
-                log(`error: Create symbolic link`)
-                console.log(`error: ${error.message}`);
+                log(`error when creating symbolic link : ${error.message}`)
                 return;
             }
         }
@@ -45,7 +43,6 @@ module.exports = {
                     const fileName = envFolder === 'Movies' ? `${torrentName.name}${file.slice(-4)}` : showFileName()
                     await execPromise(`ln -s '${env.Torrents}/${myArgs}/${file}' '${env[envFolder]}/${folder}/${fileName}'`)
                     log(`info: Create symbolic link`)
-                    console.log(`Création du lien symbolique... \n`)
                 })
                 //add cover picture
                 if (torrentName.cover && envFolder === 'Movies') {
@@ -57,8 +54,7 @@ module.exports = {
                     await execPromise(`wget -O '${env[envFolder]}/${folder}/Season ${torrentName.season}/cover.jpg' '${torrentName.cover}'`)
                 }
             } catch (error) {
-                log(`error: Create symbolic link`)
-                console.log(`error: ${error.message}`);
+                log(`error when creating symbolic link : ${error.message}`)
                 return;
             }
         }

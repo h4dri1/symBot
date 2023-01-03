@@ -3,6 +3,7 @@
 const { makeFolder } = require('./modules/makeName')
 const { createFolder } = require('./modules/createFolder')
 const { symLink } = require('./modules/symLink')
+const { log } = require('./log/logger')
 
 module.exports = {
     linkTorrentMovies: async (torrentName, myArgs) => {
@@ -11,7 +12,6 @@ module.exports = {
             if (torrentName.media === 'tv') {
                 // TVShow
                 log('info: Finding TV Show adding...')
-                console.log('Serie trouvée ajout en court...')
                 // Create folder
                 log('info: Creating folder...')
                 await createFolder(makeFolder(torrentName), 'TVShows', torrentName)
@@ -31,8 +31,7 @@ module.exports = {
                 await symLink(myArgs, makeFolder(torrentName), 'Movies', torrentName)
             }
         } catch (error) {
-            log(`error: Link torrent`)
-            console.log(`error: ${error.message}`);
+            log(`error when linking torrent : ${error.message}`)
             return;
         }
     },
