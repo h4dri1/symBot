@@ -1,11 +1,11 @@
 const fs = require('fs');
-require("dotenv").config({ path: "~/symBot/.env" })
+require("dotenv").config({ path: process.env.envFolder })
 
 module.exports = {
   // Write log
   log: (message) => {
     try {
-      fs.writeFileSync(process.env.LogFolder, message);
+      fs.writeFileSync(process.env.LogFolder, `${new Date().toLocaleString()} : ${message}\n`, { flag: 'a' });
       console.log(message);
       // fichier écrit avec succès
     } catch (err) {
