@@ -5,7 +5,7 @@ const util = require('util')
 const { env } = require('../../config');
 const regExFilters = require("../filters/regEx");
 const { moreOneFile } = require("../services/moreOneFile");
-const { log } = require("../services/log");
+const { log } = require("../log/logger");
 
 module.exports = {
     symLink: async (myArgs, folder, envFolder, torrentName) => {
