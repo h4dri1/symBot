@@ -1,5 +1,5 @@
 const fs = require('fs');
-require("dotenv").config({ path: "~/dev/symBot/.env" })
+require("dotenv").config({ path: "~/symBot/.env" })
 
 module.exports = {
   // Write log

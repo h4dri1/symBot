@@ -1,7 +1,7 @@
 // Description: This file contains the configuration for the application
 // Use the .env file to configure the application
 
-require("dotenv").config({ path: "~/dev/symBot/.env" })
+require("dotenv").config({ path: "~/symBot/.env" })
 
 const TVShows = process.env.TVShowsFolder
 const Movies = process.env.MoviesFolder
