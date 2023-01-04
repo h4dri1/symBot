@@ -1,7 +1,7 @@
 // Description: This file contains the configuration for the application
 // Use the .env file to configure the application
 
-require("dotenv").config({ path: './' })
+require("dotenv").config({ path: '/home/torrent/symBot' })
 
 const TVShows = process.env.TVShowsFolder
 const Movies = process.env.MoviesFolder
