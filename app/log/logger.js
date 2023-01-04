@@ -1,5 +1,5 @@
 const fs = require('fs');
-require("dotenv").config({ path: '../.env' })
+require("dotenv").config({ path: '../' })
 
 module.exports = {
   // Write log
