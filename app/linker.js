@@ -11,23 +11,22 @@ module.exports = {
         try {
             if (torrentName.media === 'tv') {
                 // TVShow
-                log('info: Finding TV Show adding...')
+                log('info: Finding TV Shows...')
                 // Create folder
-                log('info: Creating folder...')
+                log('info: Start creating folder...')
                 await createFolder(makeFolder(torrentName), 'TVShows', torrentName)
                 // Create symbolic link
-                log('info: Creating symbolic link...')
+                log('info: Start creating symbolic link...')
                 await symLink(myArgs, makeFolder(torrentName), 'TVShows', torrentName)
             }
             else {
                 // Movie
-                log('info: Finding Movie adding...')
-                console.log('Film trouvé ajout en court...')
+                log('info: Finding Movie...')
                 // Create folder
-                log('info: Creating folder...')
+                log('info: Start creating folder...')
                 await createFolder(makeFolder(torrentName), 'Movies', torrentName)
                 // Create symbolic link
-                log('info: Creating symbolic link...')
+                log('info: Start creating symbolic link...')
                 await symLink(myArgs, makeFolder(torrentName), 'Movies', torrentName)
             }
         } catch (error) {

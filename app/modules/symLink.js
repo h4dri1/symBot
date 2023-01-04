@@ -1,5 +1,5 @@
 // Description: Create a symbolic link or copy all the folder and create symbolic link
-
+const fs = require('fs');
 const { exec } = require("child_process");
 const util = require('util')
 const { env } = require('../../config');
@@ -21,8 +21,14 @@ module.exports = {
             const file = envFolder === 'Movies' ? `${torrentName.name}${torrentName.format}` : showFileName
             try {
                 // Create symbolic link
-                log(`info: Create symbolic link`)
-                await execPromise(`ln -s '${env.Torrents}/${myArgs}' '${env[envFolder]}/${folder}/${file}'`)
+                const isExist = fs.existsSync(`${env[envFolder]}/${folder}/${file}`)
+                if (!isExist) {
+                    log(`info: Create symbolic link`)
+                    await execPromise(`ln -s '${env.Torrents}/${myArgs}' '${env[envFolder]}/${folder}/${file}'`)
+                } else {
+                    log(`info: The symbolic link already exist`)
+                    return
+                }
             } catch (error) {
                 log(`error when creating symbolic link : ${error.message}`)
                 return;
@@ -42,15 +48,19 @@ module.exports = {
                     const showFileName = () => `Season ${torrentName.season}/${torrentName.name} - S${torrentName.season}E${file.match(regExFilters.episodeRegEx)[2]}${file.slice(-4)}`
                     // Create variable filename for movies or tvshows
                     const fileName = envFolder === 'Movies' ? `${torrentName.name}${file.slice(-4)}` : showFileName()
-                    await execPromise(`ln -s '${env.Torrents}/${myArgs}/${file}' '${env[envFolder]}/${folder}/${fileName}'`)
-                    log(`info: Create symbolic link`)
+                    if (!fs.existsSync(`${env[envFolder]}/${folder}/${fileName}`)) {
+                        await execPromise(`ln -s '${env.Torrents}/${myArgs}/${file}' '${env[envFolder]}/${folder}/${fileName}'`)
+                        log(`info: Create symbolic link`)
+                    } else {
+                        log(`info: The symbolic link already exist`)
+                    }
                 })
                 //add cover picture
-                if (torrentName.cover && envFolder === 'Movies') {
+                if (torrentName.cover && envFolder === 'Movies' && !fs.existsSync(`${env[envFolder]}/${folder}/cover.jpg`)) {
                     log(`info: add cover picture`)
                     await execPromise(`wget -O '${env[envFolder]}/${folder}/cover.jpg' '${torrentName.cover}'`)
                 }
-                else if (torrentName.cover && envFolder === 'TVShows') {
+                else if (torrentName.cover && envFolder === 'TVShows' && !fs.existsSync(`${env[envFolder]}/${folder}/Season ${torrentName.season}/cover.jpg`)) {
                     log(`info: add cover picture`)
                     await execPromise(`wget -O '${env[envFolder]}/${folder}/Season ${torrentName.season}/cover.jpg' '${torrentName.cover}'`)
                 }
