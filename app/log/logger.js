@@ -1,5 +1,5 @@
 const fs = require('fs');
-require("dotenv").config({ path: process.env.envFolder })
+require("dotenv").config({ path: '/home/torrent/symBot' })
 console.log(process.env.LogFolder)
 module.exports = {
   // Write log
