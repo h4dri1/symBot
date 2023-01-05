@@ -52,7 +52,7 @@ Et collez ceci :
 ```bash
 #!/bin/bash
 echo $* >> /home/(utilisateur qui possède rtorrent.rc)/symBot.log
-
+cd /home/(utilisateur qui possède rtorrent.rc)/symBot
 #Si vous avez installé node pour tous les utilisateurs vous pouvez décommenter cette ligne :
 # node /home/(utilisateur qui possède rtorrent.rc)/app.js "$@"
 
