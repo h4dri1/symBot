@@ -6,11 +6,11 @@
 // Torrent name argument
 let myArgs = process.argv.slice(2);
 
-if (myArgs === "--test") {
-    myArgs = process.argv.slice(3);
+if (myArgs[0] === "--test") {
+    myArgs = myArgs[1]
+} else {
+    myArgs = myArgs[0]
 }
-
-console.log('myArgs: ', myArgs)
 
 const regExFilters = require('./app/filters/regEx')
 const { clean } = require('./app/modules/cleaner')
@@ -22,7 +22,7 @@ const { log } = require('./app/log/logger');
 // Check the file extension
 // Search for the file extension in folder or in the torrent name
 async function checkRegX(regExSearch) {
-    const type = await checkType(myArgs[0], regExSearch);
+    const type = await checkType(myArgs, regExSearch);
     return `.${type[1]}`
 }
 
@@ -34,10 +34,10 @@ async function main() {
     // If the torrent is a serie or a movie
     if (isMovieMedia) {
         // make torrent name
-        const torrentName = await makeMovieName(fileType, myArgs[0]);
+        const torrentName = await makeMovieName(fileType, myArgs);
 
         // Create symbolic link
-        linkTorrentMovies(torrentName, myArgs[0]);
+        linkTorrentMovies(torrentName, myArgs);
     } else if (isMusicMedia) {
         //Need to be refactored and optimized
         const year = myArgs[0].match(regExFilters.yearRegEx);
@@ -45,7 +45,7 @@ async function main() {
 
         // Clean torrent name
         const torrentName =  clean({
-            name: nameTorrent ? nameTorrent[1] : myArgs[0],
+            name: nameTorrent ? nameTorrent[1] : myArgs,
             year: year ? year[0] : null,
             format: format ? checkFormat : null
         })
