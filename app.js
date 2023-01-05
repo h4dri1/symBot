@@ -10,6 +10,8 @@ if (myArgs === "--test") {
     myArgs = process.argv.slice(3);
 }
 
+console.log('myArgs: ', myArgs)
+
 const regExFilters = require('./app/filters/regEx')
 const { clean } = require('./app/modules/cleaner')
 const { linkTorrentMovies, linkTorrentMusic } = require('./app/linker')
