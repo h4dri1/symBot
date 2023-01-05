@@ -18,6 +18,7 @@ module.exports = {
                 // Create symbolic link
                 log('info: Start creating symbolic link...')
                 await symLink(myArgs, makeFolder(torrentName), 'TVShows', torrentName)
+                log('info: --------------------------------------------------------------- End of the process')
             }
             else {
                 // Movie
