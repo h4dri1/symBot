@@ -1,5 +1,5 @@
 const fs = require('fs');
-require("dotenv").config({ path: '/home/torrent' })
+require('dotenv').config()
 console.log(process.env.LogFolder)
 module.exports = {
   // Write log
