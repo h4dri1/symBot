@@ -4,7 +4,11 @@
 // Version: 0.1.0
 
 // Torrent name argument
-const myArgs = process.argv.slice(2);
+let myArgs = process.argv.slice(2);
+
+if (myArgs === "--test") {
+    myArgs = process.argv.slice(3);
+}
 
 const regExFilters = require('./app/filters/regEx')
 const { clean } = require('./app/modules/cleaner')
@@ -49,6 +53,7 @@ async function main() {
     } else {
         log('error: This torrent is not a movie or a serie')
         console.log('This torrent is not a movie or a serie')
+        return
     }
 }
 
