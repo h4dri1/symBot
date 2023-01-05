@@ -11,6 +11,7 @@ const { clean } = require('./app/modules/cleaner')
 const { linkTorrentMovies, linkTorrentMusic } = require('./app/linker')
 const { checkType } = require('./app/services/checkType');
 const { makeMovieName } = require('./app/modules/makeName');
+const { log } = require('./app/log/logger');
 
 // Check the file extension
 // Search for the file extension in folder or in the torrent name
@@ -45,6 +46,9 @@ async function main() {
 
         // Create symbolic link
         linkTorrentMusic(torrentName, myArgs[0]);
+    } else {
+        log('error: This torrent is not a movie or a serie')
+        console.log('This torrent is not a movie or a serie')
     }
 }
 
