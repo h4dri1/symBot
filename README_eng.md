@@ -53,7 +53,7 @@ And paste this :
 ```bash
 #!/bin/bash
 echo $* >> /home/(user who own rtorrent.rc)/symBot.log
-
+cd /home/(utilisateur qui possède rtorrent.rc)/symBot
 #If you installed node for all users you can uncomment this line:
 # node /home/(user who own rtorrent.rc)/app.js "$@"
 
