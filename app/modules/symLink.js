@@ -24,7 +24,7 @@ module.exports = {
                 const isExist = fs.existsSync(`${env[envFolder]}/${folder}/${file}`)
                 if (!isExist) {
                     log(`info: Create symbolic link`)
-                    mode = 'normal' ? await execPromise(`ln -s '${env.Torrents}/${myArgs}' '${env[envFolder]}/${folder}/${file}'`) : null
+                    mode = 'normal' ? await execPromise(`ln -s '${env.Torrents}/${myArgs}' '${env[envFolder]}/${folder}/${file}'`) : log('test: Create symbolic link OK')
                 } else {
                     log(`info: The symbolic link already exist`)
                     return
@@ -49,7 +49,7 @@ module.exports = {
                     // Create variable filename for movies or tvshows
                     const fileName = envFolder === 'Movies' ? `${torrentName.name}${file.slice(-4)}` : showFileName()
                     if (!fs.existsSync(`${env[envFolder]}/${folder}/${fileName}`)) {
-                        mode = 'normal' ? await execPromise(`ln -s '${env.Torrents}/${myArgs}/${file}' '${env[envFolder]}/${folder}/${fileName}'`) : null
+                        mode = 'normal' ? await execPromise(`ln -s '${env.Torrents}/${myArgs}/${file}' '${env[envFolder]}/${folder}/${fileName}'`) : log('test: Create symbolic link OK')
                         log(`info: Create symbolic link`)
                     } else {
                         log(`info: The symbolic link already exist`)
@@ -58,11 +58,11 @@ module.exports = {
                 //add cover picture
                 if (torrentName.cover && envFolder === 'Movies' && !fs.existsSync(`${env[envFolder]}/${folder}/cover.jpg`)) {
                     log(`info: add cover picture`)
-                    mode = 'normal' ? await execPromise(`wget -O '${env[envFolder]}/${folder}/cover.jpg' '${torrentName.cover}'`) : null
+                    mode = 'normal' ? await execPromise(`wget -O '${env[envFolder]}/${folder}/cover.jpg' '${torrentName.cover}'`) : log('test: add cover picture OK')
                 }
                 else if (torrentName.cover && envFolder === 'TVShows' && !fs.existsSync(`${env[envFolder]}/${folder}/Season ${torrentName.season}/cover.jpg`)) {
                     log(`info: add cover picture`)
-                    mode = 'normal' ? await execPromise(`wget -O '${env[envFolder]}/${folder}/Season ${torrentName.season}/cover.jpg' '${torrentName.cover}'`) : null
+                    mode = 'normal' ? await execPromise(`wget -O '${env[envFolder]}/${folder}/Season ${torrentName.season}/cover.jpg' '${torrentName.cover}'`) : log('test: add cover picture OK')
                 }
             } catch (error) {
                 log(`error when creating symbolic link : ${error.message}`)

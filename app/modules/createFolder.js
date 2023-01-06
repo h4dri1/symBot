@@ -15,7 +15,7 @@ module.exports = {
             if (!fs.existsSync(`${env[envFolder]}/${folder}`)) {
                 // Create folder
                 log(`info: Create folder`)
-                mode = 'normal' ? await execPromise(`mkdir '${env[envFolder]}/${folder}'`) : null
+                mode = 'normal' ? await execPromise(`mkdir '${env[envFolder]}/${folder}'`) : log('test: Create folder OK')
             }
             else {
                 log(`info: The folder already exist`)
@@ -26,7 +26,7 @@ module.exports = {
                 if (!fs.existsSync(`${env[envFolder]}/${folder}/Season ${torrentName.season}`)) {
                     // Create season folder
                     log(`info: Create season folder`)
-                    mode = 'normal' ? await execPromise(`mkdir '${env[envFolder]}/${folder}/Season ${torrentName.season}'`) : null
+                    mode = 'normal' ? await execPromise(`mkdir '${env[envFolder]}/${folder}/Season ${torrentName.season}'`) : log('test: Create season folder OK')
                 }
                 else {
                     log(`info: The season folder already exist`)
