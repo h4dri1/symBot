@@ -5,8 +5,10 @@
 
 // Torrent name argument
 let myArgs = process.argv.slice(2);
+let mode = "normal";
 
 if (myArgs[0] === "--test") {
+    mode = "test";
     myArgs = myArgs[1]
 } else {
     myArgs = myArgs[0]
@@ -37,7 +39,7 @@ async function main() {
         const torrentName = await makeMovieName(fileType, myArgs);
 
         // Create symbolic link
-        linkTorrentMovies(torrentName, myArgs);
+        linkTorrentMovies(torrentName, myArgs, mode);
     } else if (isMusicMedia) {
         //Need to be refactored and optimized
         const year = myArgs[0].match(regExFilters.yearRegEx);

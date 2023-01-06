@@ -7,7 +7,7 @@ const { exec } = require("child_process");
 const { log } = require('../log/logger')
 
 module.exports = {
-    createFolder: async (folder, envFolder, torrentName) => {
+    createFolder: async (folder, envFolder, torrentName, mode) => {
         const execPromise = util.promisify(exec)
         try {
             // Check if the folder exist
@@ -15,7 +15,7 @@ module.exports = {
             if (!fs.existsSync(`${env[envFolder]}/${folder}`)) {
                 // Create folder
                 log(`info: Create folder`)
-                await execPromise(`mkdir '${env[envFolder]}/${folder}'`)
+                mode = 'normal' ? await execPromise(`mkdir '${env[envFolder]}/${folder}'`) : null
             }
             else {
                 log(`info: The folder already exist`)
@@ -26,7 +26,7 @@ module.exports = {
                 if (!fs.existsSync(`${env[envFolder]}/${folder}/Season ${torrentName.season}`)) {
                     // Create season folder
                     log(`info: Create season folder`)
-                    await execPromise(`mkdir '${env[envFolder]}/${folder}/Season ${torrentName.season}'`)
+                    mode = 'normal' ? await execPromise(`mkdir '${env[envFolder]}/${folder}/Season ${torrentName.season}'`) : null
                 }
                 else {
                     log(`info: The season folder already exist`)

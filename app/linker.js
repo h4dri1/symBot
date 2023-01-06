@@ -6,7 +6,7 @@ const { symLink } = require('./modules/symLink')
 const { log } = require('./log/logger')
 
 module.exports = {
-    linkTorrentMovies: async (torrentName, myArgs) => {
+    linkTorrentMovies: async (torrentName, myArgs, mode) => {
     // Check if the torrent is a serie or a movie
         try {
             if (torrentName.media === 'tv') {
@@ -14,10 +14,10 @@ module.exports = {
                 log('info: Finding TV Shows...')
                 // Create folder
                 log('info: Start creating folder...')
-                await createFolder(makeFolder(torrentName), 'TVShows', torrentName)
+                await createFolder(makeFolder(torrentName), 'TVShows', torrentName, mode)
                 // Create symbolic link
                 log('info: Start creating symbolic link...')
-                await symLink(myArgs, makeFolder(torrentName), 'TVShows', torrentName)
+                await symLink(myArgs, makeFolder(torrentName), 'TVShows', torrentName, mode)
                 log('info: --------------------------------------------------------------- End of the process')
             }
             else {
@@ -25,10 +25,10 @@ module.exports = {
                 log('info: Finding Movie...')
                 // Create folder
                 log('info: Start creating folder...')
-                await createFolder(makeFolder(torrentName), 'Movies', torrentName)
+                await createFolder(makeFolder(torrentName), 'Movies', torrentName, mode)
                 // Create symbolic link
                 log('info: Start creating symbolic link...')
-                await symLink(myArgs, makeFolder(torrentName), 'Movies', torrentName)
+                await symLink(myArgs, makeFolder(torrentName), 'Movies', torrentName, mode)
             }
         } catch (error) {
             log(`error when linking torrent : ${error.message}`)
