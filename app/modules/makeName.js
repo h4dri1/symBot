@@ -30,6 +30,7 @@ module.exports = {
                 year: year ? year[0] : null,
                 format: fileType ? fileType : null
             })
+            console.log(torrentInfo)
 
             // Call api to get info
             log('info: Call api to get info')

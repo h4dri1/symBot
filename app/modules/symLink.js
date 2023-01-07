@@ -9,7 +9,6 @@ const { log } = require("../log/logger");
 
 module.exports = {
     symLink: async (myArgs, folder, envFolder, torrentName, mode) => {
-        console.log(mode)
         const execPromise = util.promisify(exec)
         // Check if the torrent is a folder
         log(`info: Check if the torrent is a folder`)
